@@ -1,0 +1,112 @@
+﻿@import "base";
+
+/* Utilities */
+.g-text-center{text-align:center;}
+.g-text-left{text-align:left;}
+.g-text-right{text-align:right;}
+
+img.g-full-width{clear:both;display:block;width:100%;height:auto;margin:0 0 0 0;}
+
+.g-img-left{
+    float:left;
+    margin:0 20px 5px 0;
+    @extend .g-max-full-width;
+}
+.g-img-right{
+    float:right;
+    margin:0 0 5px 20px; 
+    @extend .g-max-full-width;
+}
+
+.g-full-width {
+  width: 100%;
+  box-sizing: border-box;
+}
+.g-max-full-width {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.g-as-table{
+    display:table;
+    width:100%;
+    height:100%;
+    table-layout:fixed;
+}
+.g-as-cell{
+    display:table-cell;
+    vertical-align:middle;
+    text-align:center;
+}
+.g-img-centered{
+    @include img-centered;
+}
+.g-video-wrap {
+	position: relative;
+	padding-bottom: 56.25%; /* 16:9 */
+	padding-top: 25px;
+	height: 0;
+}
+.g-video-wrap iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+    border:none;
+}
+
+.g-resp-text{
+    font-size:rem(14px);
+
+    @include media($tablet){
+        font-size:rem(15px);
+    }
+
+    @include media($desktop){
+        font-size:rem(16px);
+    }
+}
+
+.g-shadow-hover{
+    transition-property:box-shadow, border-color;
+    transition-duration:.3s;
+    transition-timing-function:ease;
+
+    &:hover{
+        box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+}
+
+.g-align{
+    position:absolute;
+    top:50%; left:50%;
+    transform:translate(-50%, -50%);
+}
+
+.g-valign{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+}
+
+.g-hidden {
+    display: none !important;
+    visibility: hidden;
+}
+
+.g-visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+
+.g-clearfix{
+    @include clearfix; //bourbon clearfix
+}

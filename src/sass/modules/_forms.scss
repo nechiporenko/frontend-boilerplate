@@ -1,0 +1,107 @@
+﻿@import "base";
+/* Forms */
+$error-color:#e74c3c;
+
+/* Removes awkward default styles on some inputs for iOS */
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+textarea {
+    @include appearance(none);
+}
+
+.g-input,
+.g-select,
+.g-textarea{
+    display:inline-block;
+    vertical-align:middle;
+    width:100%;
+    margin-bottom: $project-line-height;
+    padding:6px 10px;
+    background-color: #fff;
+    border: 1px solid $border-color;
+    border-radius:$border-radius;
+    color:$text-color;
+    box-shadow: none;
+    box-sizing: border-box;
+
+    @include placeholder{
+        color:#888888;
+        text-overflow:ellipsis;
+    }
+
+    &:hover,
+    &:focus{
+        border-color:$primary;
+        outline:0;
+    }
+
+    &:focus{
+        box-shadow:inset 0 0 4px rgba($primary, .5);
+    }
+
+    &:disabled{
+        border-color:$border-color;
+        box-shadow:inset 0 0 4px rgba($border-color, .8);
+    }
+    
+    &.error,
+    .error > &{
+        border-color:$error-color !important;
+        color:$error-color !important;
+
+        @include placeholder{
+            color:$error-color !important;
+        }
+    }
+}
+
+.g-input,
+.g-select{
+    height:2*$project-line-height;
+}
+
+.g-textarea{
+    min-height:5*$project-line-height;
+}
+
+.g-label{
+    display: block;
+    margin-bottom:$project-line-height/3;
+
+    &.error,
+    .error > &{
+        color:$error-color;
+    }
+}
+.g-label__body{
+    display: inline-block;
+    margin-left:10px;
+    font-weight: normal;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  display: inline; }
+
+
+.g-fieldset{
+    position:relative;
+}
+.g-fieldset__msg{
+    font-size:rem(10px);
+    color:$error-color;
+    position:absolute;
+    left:0; bottom:0;
+    font-style:italic;
+    display:none;
+
+    .error > &{
+        display:block;
+    }
+}
+

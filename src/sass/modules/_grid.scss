@@ -1,0 +1,64 @@
+﻿@import "base";
+/*Grid*/
+.g-container {
+    @include outer-container();
+    padding:0 10px;
+    box-sizing:border-box;
+
+    @include media($small){
+        width:85%;
+    }
+
+    @include media($tablet){
+        width:95%;
+    }
+
+    @include media($desktop){
+        width:100%;
+    }
+}
+
+.g-row{
+    @include row();  
+}
+
+
+/*Default Grid*/
+.g-column{
+    width: 100%;
+    float: left;
+    box-sizing: border-box;
+    min-height:1px;
+}
+.g-col{
+  @extend .g-column;
+
+  @include media($tablet){
+      margin-left:$grid-gutter;
+      &:first-child{
+          margin-left:0;
+      }    
+  }
+}
+
+@include media($tablet){
+    .g-col--one-half{
+        width:(100%-$grid-gutter)/2;
+    }
+    
+    .g-col--one-third{
+        width:(100%-$grid-gutter*2)/3;
+    }
+    .g-col--two-thirds{
+        width: 2*(100%-$grid-gutter*2)/3 + $grid-gutter;
+    }
+    .g-col--one-fourth{
+        width:(100% - $grid-gutter*3)/4;
+    }
+    .g-col--one-fifth{
+        width: (100%-$grid-gutter*4)/5;
+    }
+    .g-col--one-sixth{
+        width: (100%-$grid-gutter*5)/6;
+    }
+}

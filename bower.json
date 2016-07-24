@@ -1,0 +1,22 @@
+{
+  "name": "frontend-gulp",
+  "description": "Gulp Frontend Boilerplate",
+  "main": "",
+  "authors": [
+    "Serhiy Nechiporenko"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "jquery": "^3.1.0",
+    "bourbon": "^4.2.7",
+    "neat": "^1.8.0"
+  }
+}

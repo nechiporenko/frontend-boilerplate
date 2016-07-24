@@ -1,0 +1,26 @@
+﻿@import "../../modules/_base.scss";
+/*Scroll-up button*/
+.page__scroll{
+    @extend .g-clearbutton;
+    @include size(50px);
+    line-height:50px;
+    color:$primary;
+    background-color:#ddd;
+    text-align:center;
+    font-size:rem(24px);
+    position:fixed;
+    right:10px;
+    bottom:10px;
+    opacity:.5;
+    transition-property:opacity, transform;
+    transition-duration:.3s;
+    transition-timing-function:ease;
+    z-index:1000;
+    cursor:pointer;
+    display:none; //покажем скриптом
+
+    &:hover,
+    &:active{
+        opacity:.9;
+    }
+}

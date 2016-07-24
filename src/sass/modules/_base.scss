@@ -1,0 +1,32 @@
+// Core imports
+@import "../../../bower_components/bourbon/app/assets/stylesheets/bourbon";
+
+@import "neat-grid-settings";
+@import "../../../bower_components/neat/app/assets/stylesheets/neat";
+
+// Default project variables
+$project-font-size:14px; //in px
+$project-line-height:18px; //in px
+
+$grid-gutter: flex-gutter();
+$border-radius:4px;
+
+//colors
+$text-color:#444;
+$title-color:#222;
+$border-color:#d1d1d1;
+$primary:#3498db;
+
+//fonts
+$font-regular:'Arial';
+$font-title:'Arial';
+
+//centered image
+@mixin img-centered(){
+    position:absolute;
+    top:0; right:0; bottom:0; left:0;
+    max-width:100%;
+    max-height:100%;
+    margin:auto;
+}
+

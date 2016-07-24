@@ -1,0 +1,44 @@
+﻿@import "base";
+/*Tables*/
+
+.g-table{
+    @extend .g-full-width;
+    th,
+    td {
+      padding:$project-line-height/2 10px;
+      border-bottom: 1px solid $border-color; 
+    }
+
+    th:first-child,
+    td:first-child {
+      padding-left: 0; }
+    th:last-child,
+    td:last-child {
+      padding-right: 0; }
+}
+
+/*Make table scrollable on small screens*/
+.g-table-wrap{
+    width:100%;
+    overflow-y:hidden;
+    overflow-x:auto;
+    margin-bottom:$project-line-height;
+    border:1px dashed #ddd;
+
+    table{
+        margin-bottom:0;
+
+        th, td{
+            white-space:nowrap;
+        }
+    }
+
+    @include media($tablet){
+        border:none;
+        table{
+            th, td{
+                white-space:normal;
+            }
+        }
+    }
+}

@@ -1,0 +1,120 @@
+﻿@import "../../modules/base";
+/** BX Slider **/
+
+$loader:   '../img/loader.gif';
+
+//layout
+.bx-wrapper {
+	position: relative;
+    margin:0 auto;
+	padding: 0;
+	-ms-touch-action: pan-y;
+	touch-action: pan-y;
+}
+
+
+
+.bx-viewport {
+	//fix other elements on the page moving (on Chrome)
+	-webkit-transform: translatez(0);
+}
+
+// THEME
+.bx-wrapper {
+	.bx-pager,
+	.bx-controls-auto {
+		position: absolute;
+        bottom: $project-line-height;
+		width: 100%;
+		z-index:60;
+	}
+}
+
+// LOADER
+.bx-wrapper .bx-loading {
+	min-height: 50px;
+	background: url($loader) center center no-repeat #fff;
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 2000;
+}
+
+// PAGER
+.bx-wrapper {
+	.bx-pager {
+		text-align: center;
+		font-size: .85em;
+		font-family: Arial;
+		font-weight: bold;
+		color: #666;
+
+		&.bx-default-pager a {
+			background: #666;
+			@include hide-text;
+			display: block;
+			@include size(10px);
+			margin: 0 5px;
+			outline: 0;
+			border-radius: 50%;
+
+			&:hover,
+			&.active,
+			&:focus {
+				background: $primary;
+			}
+		}
+	}
+	.bx-pager-item,
+	.bx-controls-auto .bx-controls-auto-item {
+		display: inline-block;
+        vertical-align:middle;
+	}
+	.bx-pager-item {
+		font-size: 0;
+		line-height: 0;
+	}
+}
+
+// DIRECTION CONTROLS (NEXT / PREV)
+.bx-wrapper {
+	.bx-prev {
+		left: 10px;
+	}
+	.bx-next {
+		right: 10px;
+	}
+	.bx-controls-direction a {
+		position: absolute;
+	    top: 50%;
+	    margin-top: -$project-line-height;
+	    outline: 0;
+        @include size(2*$project-line-height);
+        line-height:2*$project-line-height;
+        border:1px solid $border-color;
+        border-radius:$border-radius;
+        color:$primary;
+        background:#fff;
+        text-align:center;
+	    z-index: 60;
+        opacity:.8;
+        box-sizing:border-box;
+		transition-property:opacity;
+		@extend .g-transition;
+	
+
+        &:hover,
+        &:active{
+            opacity:1;
+            background:$primary;
+            color:#fff;
+        }
+
+        &.disabled {
+		    opacity:.35;
+            cursor:default;
+	    }
+	}
+}
