@@ -3,26 +3,27 @@ module.exports = function(grunt) {
 	require('load-grunt-tasks')(grunt);
 	
 	grunt.initConfig({
-		pkg: grunt.file.readJSON('package.json'),
-		watch: {
+		pkg: grunt.file.readJSON('package.json'),//будем брать данные для баннеров отсюда
+		
+		watch: {//отслеживаем изменения в файлах
 			sass: {
-				files: ['src/sass/main.scss','src/sass/**/*.scss'],
-				tasks: ['sass:dist', 'autoprefixer:dist', 'cssmin', 'usebanner:css']
+				files: ['src/sass/main.scss','src/sass/**/*.scss'],//все sass файлы
+				tasks: ['sass:dist', 'autoprefixer:dist', 'cssmin', 'usebanner:css'] //компилирем в css, добавляем префиксы, сжимаем и добавляем баннер
 			},
-			livereload: {
-				files: ['dist/*.html', 'src/js/*.js', 'dist/css/*.css','dist/img/**/*.{png,jpg,jpeg,gif,webp,svg}'],
+			livereload: {//перезагружаем браузер при изменениях в файлах
+				files: ['dist/*.html','src/*.html', 'src/templates/*.html', 'src/js/*.js', 'dist/css/*.css','dist/img/**/*.{png,jpg,jpeg,gif,webp,svg}'],
 				options: {
 					livereload: true
 				}
 			},
 			scripts: {
 				files: ['src/js/*.js'],
-				tasks: ['concat', 'uglify', 'usebanner:js'],
+				tasks: ['concat', 'uglify', 'usebanner:js'],//склеиваем plugin.js & main.js, сжимаем, добавляем баннер
 				options: {
 					spawn: false,
 				},
 			},
-			images:{
+			images:{//оптимизируем изображения
 				files: ['src/img/**/*.{png,jpg,gif,svg}'],
 				tasks:['imagemin'],
 				options: {
@@ -30,6 +31,14 @@ module.exports = function(grunt) {
 					cache: false
 				},
 			},
+			html:{//собираем html файлы по частям
+				files: ['src/*.html', 'src/templates/*.html'],
+				tasks:['includereplace'],
+				options: {
+					spawn: false,
+					cache: false
+				}
+			}
 		},
 		sass: {
 			options: {
@@ -39,12 +48,12 @@ module.exports = function(grunt) {
 				outputStyle: 'expanded'
 			},
 			dist: {
-				files: {
+				files: {//компилируем sass-файлы в src/css/unprefixed.css
 					'src/css/unprefixed.css': 'src/sass/main.scss'
 				}
 			}
 		},
-		autoprefixer: {
+		autoprefixer: {//добавляем вендорные префиксы
 			options: {
 				browsers: [
 				  'last 2 version',
@@ -59,7 +68,7 @@ module.exports = function(grunt) {
 				dest: 'src/css/prefixed.css'
 			},
 		},
-		cssmin: {
+		cssmin: {//сжимаем css
 		  options: {
 			shorthandCompacting: false,
 			roundingPrecision: -1
@@ -70,7 +79,7 @@ module.exports = function(grunt) {
 			}
 		  }
 		},
-		concat: {
+		concat: {//склеиваем js-файлы
 			dist: {
 				src: [
 					'src/js/plugins.js',
@@ -79,13 +88,13 @@ module.exports = function(grunt) {
 				dest: 'dist/js/app.js',
 			}
 		},
-		uglify: {
+		uglify: {//минимизируем js файлы
 			build: {
 				src: 'dist/js/app.js',
 				dest: 'dist/js/app.min.js'
 			}
 		},
-		imagemin: {
+		imagemin: {//оптимизация изображений
 			dynamic: {
 				png:{
 					options: {
@@ -110,7 +119,7 @@ module.exports = function(grunt) {
 				}]
 			}
 		},
-		tag: {
+		tag: {//контент баннера
 		  banner: '/*!\n' +
 			' * <%= pkg.name %>\n' +
 			' * @author: <%= pkg.author %>\n' +
@@ -118,7 +127,7 @@ module.exports = function(grunt) {
 			' * Copyright ' + new Date().getFullYear() +'.\n' +
 			' */\n'
 		},
-		usebanner: {
+		usebanner: {//баннер
 		  css: {
 			options: {
 			  position: 'top',
@@ -150,11 +159,11 @@ module.exports = function(grunt) {
 		},
 		concurrent: {
 			target1: ['newer:sass:dist', 'newer:concat'],
-			target2: [ 'newer:autoprefixer:dist', 'newer:uglify'],
+			target2: ['newer:autoprefixer:dist', 'newer:uglify'],
 			target3: ['newer:cssmin', 'newer:imagemin'],
-			target4: ['newer:copy']
+			target4: ['newer:copy', 'newer:includereplace']
 		},
-		copy: {
+		copy: {//копируем favicons, jquery & modernizr и шрифты в /dist
 			main:{
 				files: [
 					{
@@ -183,7 +192,14 @@ module.exports = function(grunt) {
 					},
 				],
 			},
-		}
+		},
+		includereplace: {
+			dist: {
+			  files:[
+				{src: 'src/*.html', dest: 'dist', expand: true, flatten: true}
+			  ]
+			}
+		  }
 	});
 	
 	grunt.loadNpmTasks('grunt-sass');
@@ -196,11 +212,15 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-banner');
+	grunt.loadNpmTasks('grunt-include-replace');
 	
 	grunt.registerTask('default', ['concurrent:target1', 'concurrent:target2', 'concurrent:target3', 'concurrent:target4', 'watch']);
+	grunt.registerTask('init', ['copy', 'includereplace']);
 	
 	//additional tasks:
-	//grunt copy
-	//grunt usebanner:css
-	//grunt imagemin
+	//grunt copy - for copy faviconts, fonts, jquery & modernizr to .dest folder
+	//grunt usebanner:css - add banner to app.css file only
+	//grunt imagemin - optimize images
+	//grunt includereplace - build html files
+	//...
 };
