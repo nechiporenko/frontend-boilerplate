@@ -25,7 +25,7 @@ module.exports = function(grunt) {
 			},
 			images:{//оптимизируем изображения
 				files: ['src/img/**/*.{png,jpg,gif,svg}'],
-				tasks:['imagemin'],
+				tasks:['newer:imagemin'],
 				options: {
 					spawn: false,
 					cache: false
@@ -33,7 +33,7 @@ module.exports = function(grunt) {
 			},
 			html:{//собираем html файлы по частям
 				files: ['src/*.html', 'src/templates/*.html'],
-				tasks:['includereplace'],
+				tasks:['newer:includereplace'],
 				options: {
 					spawn: false,
 					cache: false
