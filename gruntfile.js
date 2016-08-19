@@ -32,8 +32,16 @@ module.exports = function(grunt) {
 				},
 			},
 			html:{//собираем html файлы по частям
-				files: ['src/*.html', 'src/templates/*.html'],
-				tasks:['newer:includereplace'],
+				files: 'src/*.html',
+				tasks:'newer:includereplace',
+				options: {
+					spawn: false,
+					cache: false
+				}
+			},
+			templates:{//при обновлении файла в папке templates, пересоберем ВСЕ html-файлы в папке src
+				files: 'src/templates/*.html',
+				tasks:'includereplace',
 				options: {
 					spawn: false,
 					cache: false
