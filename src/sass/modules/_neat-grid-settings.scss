@@ -10,6 +10,12 @@ $extra-large: new-breakpoint(min-width em(1680));
 
 $column: golden-ratio(1em, 3) !default;
 $gutter: golden-ratio(1em, 3) !default;
+
+
+//$my_gutter:(30*100%)/960;
+//$column:(100 - 11*$my_gutter)/12;
+//$gutter:$my_gutter;
+
 $fg-column: $column;
 $fg-gutter: $gutter;
 

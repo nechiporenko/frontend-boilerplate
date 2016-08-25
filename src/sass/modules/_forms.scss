@@ -25,13 +25,12 @@ textarea {
     background-color: #fff;
     border: 1px solid $border-color;
     border-radius:$border-radius;
-    color:$text-color;
     box-shadow: none;
     box-sizing: border-box;
 
     @include placeholder{
-        color:#888888;
-        text-overflow:ellipsis;
+        color:$placeholder-color;
+        opacity:1;
     }
 
     &:hover,
